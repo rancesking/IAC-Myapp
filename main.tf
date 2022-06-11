@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "myapp" {
-    bucket = "xking-myapp1" 
+    bucket = "xking-myapp" 
 }
 resource "aws_s3_bucket_website_configuration" "myapp" {
   bucket = aws_s3_bucket.myapp.bucket
