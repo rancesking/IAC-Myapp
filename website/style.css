@@ -99,6 +99,14 @@ body {
   border-radius: 30px;
   font-weight: 600;
 }
+.screen-1 .login2 {
+  padding: 1em;
+  background: #3e4684;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+}
 .screen-1 .footer {
   display: flex;
   font-size: 0.7em;
