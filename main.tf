@@ -66,3 +66,7 @@ resource "aws_s3_object" "uploadcss" {
    content_type = "text/css"
    etag = filemd5("/home/racosta/repos/challenge7/website/${each.value}")
  }
+
+ output "Bucket_Direction" {
+     value = aws_s3_bucket.myapp.website_endpoint
+ }
