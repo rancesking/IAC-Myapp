@@ -48,7 +48,7 @@ resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
 resource "aws_lambda_function" "lambda1" {
 s3_bucket                      = aws_s3_bucket.myapp.bucket
 s3_key                         = aws_s3_object.uploadlambda1.key
-function_name                  = "lambda1"
+function_name                  = "lambda11"
 role                           = aws_iam_role.lambda_role.arn
 handler                        = "index.lambda_handler"
 runtime                        = "python3.8"
@@ -58,7 +58,7 @@ depends_on                     = [aws_iam_role_policy_attachment.attach_iam_poli
 resource "aws_lambda_function" "lambda2" {
 s3_bucket                      = aws_s3_bucket.myapp.bucket
 s3_key                         = aws_s3_object.uploadlambda2.key
-function_name                  = "lambda2"
+function_name                  = "lambda22"
 role                           = aws_iam_role.lambda_role.arn
 handler                        = "index.lambda_handler"
 runtime                        = "python3.8"

@@ -73,17 +73,17 @@
         <div class="formbg-outer">
           <div class="formbg">
             <div class="formbg-inner padding-horizontal--48">              
-              <form id="stripe-login">
+              <form id="stripe-login" target="_self">
                 <span id="lambda" class="padding-bottom--15">This is the lambda tester</span>
                 <div class="field padding-bottom--24">
                 </div>
                 <div class="field field-checkbox padding-bottom--24 flex-flex align-center">
                 </div>
-                <div class="field padding-bottom--24">
-                  <button onclick="getLambdaAPI()">Test Lambda1</button>
-                  <button onclick="getLambdaAPI2()">Test Lambda2</button>
-                </div>
               </form>
+              <div class="field padding-bottom--24">
+                <button onclick="getLambdaAPI()">Test Lambda1</button>
+                <button onclick="getLambdaAPI2()">Test Lambda2</button>
+              </div>
             </div>
           </div>
           <div class="footer-link padding-top--24">
@@ -97,4 +97,4 @@
   </div>
 </body>
 
-</html>
+</html> 

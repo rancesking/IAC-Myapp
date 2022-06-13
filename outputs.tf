@@ -2,10 +2,14 @@
      value = aws_s3_bucket.myapp.website_endpoint
  }
 
- output "lambda_Direction" {
+ output "lambda1_Direction" {
      value = aws_lambda_function.lambda1.invoke_arn
  }
 
- output "base_url" {
-  value = "${aws_api_gateway_deployment.example.invoke_url}"
+ output "lambda2_Direction" {
+     value = aws_lambda_function.lambda1.invoke_arn
+ }
+
+ output "apigw_Direction" {
+  value = aws_apigatewayv2_api.myapp.api_endpoint
 }

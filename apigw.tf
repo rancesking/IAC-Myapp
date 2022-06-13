@@ -1,50 +1,42 @@
-resource "aws_api_gateway_rest_api" "example" {
-  name        = "ServerlessExample"
-  description = "Terraform Serverless Application Example"
-}
-resource "aws_api_gateway_method" "proxy_root" {
-  rest_api_id   = "${aws_api_gateway_rest_api.example.id}"
-  resource_id   = "${aws_api_gateway_rest_api.example.root_resource_id}"
-  http_method   = "ANY"
-  authorization = "NONE"
+resource "aws_apigatewayv2_api" "myapp" {
+  name          = "myapp-http-api"
+  protocol_type = "HTTP"
 }
 
-resource "aws_api_gateway_integration" "lambda_root" {
-  rest_api_id = "${aws_api_gateway_rest_api.example.id}"
-  resource_id = "${aws_api_gateway_method.proxy_root.resource_id}"
-  http_method = "${aws_api_gateway_method.proxy_root.http_method}"
+resource "aws_apigatewayv2_integration" "myapp_lambda1" {
+  api_id           = aws_apigatewayv2_api.myapp.id
+  integration_type = "AWS_PROXY"
 
-  integration_http_method = "POST"
-  type                    = "AWS_PROXY"
-  uri                     = "${aws_lambda_function.lambda1.invoke_arn}"
+  connection_type           = "INTERNET"
+  description               = "Lambda integration"
+  integration_method        = "POST"
+  integration_uri           = aws_lambda_function.lambda1.invoke_arn
 }
 
-resource "aws_api_gateway_deployment" "example" {
-  depends_on = [
-    "aws_api_gateway_integration.lambda_root",
-  ]
+resource "aws_apigatewayv2_integration" "myapp_lambda2" {
+  api_id           = aws_apigatewayv2_api.myapp.id
+  integration_type = "AWS_PROXY"
 
-  rest_api_id = "${aws_api_gateway_rest_api.example.id}"
-  stage_name  = "test"
+  connection_type           = "INTERNET"
+  description               = "Lambda integration"
+  integration_method        = "POST"
+  integration_uri           = aws_lambda_function.lambda2.invoke_arn
 }
 
-resource "aws_lambda_permission" "apigw" {
-  statement_id  = "AllowAPIGatewayInvoke"
-  action        = "lambda:InvokeFunction"
-  function_name = "${aws_lambda_function.lambda1.function_name}"
-  principal     = "apigateway.amazonaws.com"
-  source_arn = "${aws_api_gateway_rest_api.example.execution_arn}/*/*"
+resource "aws_apigatewayv2_route" "myapp_lambda1" {
+  api_id    = aws_apigatewayv2_api.myapp.id
+  route_key = "GET /lambda1"
+  target = "integrations/${aws_apigatewayv2_integration.myapp_lambda1.id}"
 }
 
-resource "aws_api_gateway_resource" "proxy" {
-  rest_api_id = "${aws_api_gateway_rest_api.example.id}"
-  parent_id   = "${aws_api_gateway_rest_api.example.root_resource_id}"
-  path_part   = "{proxy+}"
+resource "aws_apigatewayv2_route" "myapp_lambda2" {
+  api_id    = aws_apigatewayv2_api.myapp.id
+  route_key = "GET /lambda2"
+  target = "integrations/${aws_apigatewayv2_integration.myapp_lambda2.id}"
 }
 
-resource "aws_api_gateway_method" "proxy" {
-  rest_api_id   = "${aws_api_gateway_rest_api.example.id}"
-  resource_id   = "${aws_api_gateway_resource.proxy.id}"
-  http_method   = "ANY"
-  authorization = "NONE"
+resource "aws_apigatewayv2_stage" "myapp" {
+  api_id = aws_apigatewayv2_api.myapp.id
+  name   = "$default"
+  auto_deploy = true
 }
