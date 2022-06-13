@@ -4,5 +4,5 @@ def lambda_handler(event, context):
   'headers': {
    "Access-Control-Allow-Origin": "*",
   },
-  'body': "This text is coming from Lambda22!"
+  'body': "This text is coming from  Lambda2! Studios Worldwide!!!"
  }

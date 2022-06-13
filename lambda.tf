@@ -1,6 +1,6 @@
 
 resource "aws_iam_role" "lambda_role" {
-name   = "Spacelift_Test_Lambda_Function_Role"
+name   = "Lambda_Function_Role"
 assume_role_policy = <<EOF
 {
  "Version": "2012-10-17",
@@ -39,7 +39,23 @@ resource "aws_iam_policy" "iam_policy_for_lambda" {
 }
 EOF
 }
- 
+
+resource "aws_lambda_permission" "apigw_lamba1" {
+   statement_id  = "AllowAPIGatewayInvoke"
+   action        = "lambda:InvokeFunction"
+   function_name = aws_lambda_function.lambda1.function_name
+   principal     = "apigateway.amazonaws.com"
+   source_arn = "${aws_apigatewayv2_api.myapp.execution_arn}/*/*"
+}
+
+resource "aws_lambda_permission" "apigw_lamba2" {
+   statement_id  = "AllowAPIGatewayInvoke"
+   action        = "lambda:InvokeFunction"
+   function_name = aws_lambda_function.lambda2.function_name
+   principal     = "apigateway.amazonaws.com"
+   source_arn = "${aws_apigatewayv2_api.myapp.execution_arn}/*/*"
+}
+
 resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
  role        = aws_iam_role.lambda_role.name
  policy_arn  = aws_iam_policy.iam_policy_for_lambda.arn
@@ -48,19 +64,19 @@ resource "aws_iam_role_policy_attachment" "attach_iam_policy_to_iam_role" {
 resource "aws_lambda_function" "lambda1" {
 s3_bucket                      = aws_s3_bucket.myapp.bucket
 s3_key                         = aws_s3_object.uploadlambda1.key
-function_name                  = "lambda11"
+function_name                  = "lambda1"
 role                           = aws_iam_role.lambda_role.arn
-handler                        = "index.lambda_handler"
-runtime                        = "python3.8"
+handler                        = "lambda_function.lambda_handler"
+runtime                        = "python3.9"
 depends_on                     = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
 }
 
 resource "aws_lambda_function" "lambda2" {
 s3_bucket                      = aws_s3_bucket.myapp.bucket
 s3_key                         = aws_s3_object.uploadlambda2.key
-function_name                  = "lambda22"
+function_name                  = "lambda2"
 role                           = aws_iam_role.lambda_role.arn
-handler                        = "index.lambda_handler"
-runtime                        = "python3.8"
+handler                        = "lambda_function.lambda_handler"
+runtime                        = "python3.9"
 depends_on                     = [aws_iam_role_policy_attachment.attach_iam_policy_to_iam_role]
 }
