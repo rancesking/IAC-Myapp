@@ -1,3 +1,13 @@
+ terraform {
+   backend "s3" {
+     bucket         = "terraform-state-xking"
+     key            = "global/s3/terraform.tfstate"
+     region         = "us-east-1"  
+     dynamodb_table = "terraform-state-xking-locks"
+     encrypt        = true
+   }
+ }
+
 provider "aws" {
   region = "us-east-1"
 }
@@ -50,6 +60,8 @@ resource "aws_s3_bucket_policy" "myapp" {
    }
   )
 }
+
+
  resource "aws_s3_object" "uploadhtml" {
    for_each = fileset("/home/racosta/repos/challenge7/website/", "*.html")
    bucket = aws_s3_bucket.myapp.id
@@ -58,6 +70,7 @@ resource "aws_s3_bucket_policy" "myapp" {
    content_type = "text/html"
    etag = filemd5("/home/racosta/repos/challenge7/website/${each.value}")# }
  }
+
 resource "aws_s3_object" "uploadcss" {
    for_each = fileset("/home/racosta/repos/challenge7/website/", "*.css")
    bucket = aws_s3_bucket.myapp.id
@@ -67,6 +80,20 @@ resource "aws_s3_object" "uploadcss" {
    etag = filemd5("/home/racosta/repos/challenge7/website/${each.value}")
  }
 
- output "Bucket_Direction" {
-     value = aws_s3_bucket.myapp.website_endpoint
+resource "aws_s3_object" "uploadlambda1" {
+   bucket = aws_s3_bucket.myapp.id
+   key    = "lambda/lambda1"
+   source = "/home/racosta/repos/challenge7/website/lambda1.zip"
+   content_type = "application/zip"
+   etag = filemd5("/home/racosta/repos/challenge7/website/lambda1.zip")
  }
+
+ resource "aws_s3_object" "uploadlambda2" {
+   bucket = aws_s3_bucket.myapp.id
+   key    = "lambda/lambda2"
+   source = "/home/racosta/repos/challenge7/website/lambda2.zip"
+   content_type = "application/zip"
+   etag = filemd5("/home/racosta/repos/challenge7/website/lambda2.zip")
+ }
+
+

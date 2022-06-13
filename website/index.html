@@ -2,8 +2,33 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Myapp: Sign in</title>
+  <title>Myapp: Lambda tester</title>
   <link rel="stylesheet" type="text/css" href="style.css">
+  <script>
+    function getLambdaAPI() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200){
+          document.getElementById("lambda").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET","https://mxldib5k2k.execute-api.us-east-1.amazonaws.com/lambda1",true);
+      xhttp.send();
+    }
+    function getLambdaAPI2() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200){
+          document.getElementById("lambda").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET","https://mxldib5k2k.execute-api.us-east-1.amazonaws.com/lambda2",true);
+      xhttp.send();
+    }
+    function myalert() {
+            alert("This option is not implement yet!");
+        }
+  </script>
 </head>
 
 <body>
@@ -43,46 +68,27 @@
       </div>
       <div class="box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9;">
         <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
-          <h1><a href="https://github.com/rancesking" rel="dofollow">Myapp</a></h1>
+          <h1><a href="https://github.com/rancesking" rel="dofollow">My Serverless app</a></h1>
         </div>
         <div class="formbg-outer">
           <div class="formbg">
-            <div class="formbg-inner padding-horizontal--48">
-              <span class="padding-bottom--15">Sign in to your account</span>
-              <form id="stripe-login" method="post" action="https://5woqcbuxq7.execute-api.us-east-1.amazonaws.com/default/serverlessrepo-hello-world-helloworld-wXaapMWIDHeU">
+            <div class="formbg-inner padding-horizontal--48">              
+              <form id="stripe-login">
+                <span id="lambda" class="padding-bottom--15">This is the lambda tester</span>
                 <div class="field padding-bottom--24">
-                  <label for="email">Email</label>
-                  <input type="email" name="email">
-                </div>
-                <div class="field padding-bottom--24">
-                  <div class="grid--50-50">
-                    <label for="password">Password</label>
-                    <div class="reset-pass">
-                      <a href="#">Forgot your password?</a>
-                    </div>
-                  </div>
-                  <input type="password" name="password">
                 </div>
                 <div class="field field-checkbox padding-bottom--24 flex-flex align-center">
-                  <label for="checkbox">
-                    <input type="checkbox" name="checkbox"> Stay signed in for a week
-                  </label>
                 </div>
                 <div class="field padding-bottom--24">
-                  <input type="submit" name="submit" value="Continue">
-                </div>
-                <div class="field">
-                  <a class="ssolink" href="#">Use single sign-on (Google) instead</a>
+                  <button onclick="getLambdaAPI()">Test Lambda1</button>
+                  <button onclick="getLambdaAPI2()">Test Lambda2</button>
                 </div>
               </form>
             </div>
           </div>
           <div class="footer-link padding-top--24">
-            <span>Don't have an account? <a href="">Sign up</a></span>
+            <span>Don't have an account? <a onclick="myalert()">Sign up</a></span>
             <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
-              <span><a href="#">© Stackfindover</a></span>
-              <span><a href="#">Contact</a></span>
-              <span><a href="#">Privacy & terms</a></span>
             </div>
           </div>
         </div>

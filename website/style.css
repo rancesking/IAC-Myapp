@@ -137,7 +137,7 @@ label {
     align-items: center;
 }
 
-.field input {
+.field button {
     font-size: 16px;
     line-height: 28px;
     padding: 8px 16px;
@@ -156,7 +156,7 @@ label {
                 rgba(0, 0, 0, 0) 0px 0px 0px 0px;
 }
 
-input[type="submit"] {
+button[type="submit"] {
     background-color: rgb(84, 105, 212);
     box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
                 rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
@@ -169,7 +169,7 @@ input[type="submit"] {
     font-weight: 600;
     cursor: pointer;
 }
-.field-checkbox input {
+.field-checkbox button {
     width: 20px;
     height: 15px;
     margin-right: 5px; 
