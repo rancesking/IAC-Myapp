@@ -6,7 +6,7 @@ This application use HTML, CCS, JS to invoke the lambdas via the apigateway on A
 
 ## Challenge week 7
 
-In this week we going to use IAC with terraform to create our infrastucture on AWS. My challenge was to deploy a serveless aplication using at least one api gateway and two lambdas. For my challenge i decide to deploy an S3 static website, this kind of service is free and you only need to upload you page in html and set all the setting on the bucket for locate the index file and error file and allow the bucket to act as website. [Static Website](https://hub.docker.com/repository/docker/xkingrd/littlelink).
+In this week we going to use IAC with terraform to create our infrastucture on AWS. My challenge was to deploy a serveless aplication using at least one api gateway and two lambdas. For my challenge i decide to deploy an S3 static website, this kind of service is free and you only need to upload you page in html and set all the setting on the bucket for locate the index file and error file and allow the bucket to act as website. [Static Website](http://xking-myapp.s3-website-us-east-1.amazonaws.com).
 
 
 
