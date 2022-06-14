@@ -10,7 +10,7 @@ In this week we going to use IAC with terraform to create our infrastucture on A
 
 
 
-To use this project first you need export AIM credentials on your system the variables are: AWS_ACCESS_KEY_ID & AWS_SECRET_ACCESS_KEY with this variables you have access to the AWS SDK and you can start creating the infraestructure.
+To use this project first you need to clone the repo and then export AIM credentials on your system the variables are: AWS_ACCESS_KEY_ID & AWS_SECRET_ACCESS_KEY with this variables you have access to the AWS SDK and you can start creating the infraestructure.
 
 1)Inicialize terraform.
 ```js
@@ -26,3 +26,5 @@ terraform plan
 ```js
 terraform apply
 ```
+
+The output called "Bucket_Direction" is the URL of the S3 static website.
